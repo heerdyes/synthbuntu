@@ -12,6 +12,13 @@ cd scripts/linux/ubuntu
 # sudo ./install_dependencies
 cd ..
 
-# ./compileOF.sh
-# ./compilePG.sh
+./compileOF.sh
+./compilePG.sh
 
+# autologin
+systemctl edit getty@tty1.service --drop-in=autologin
+
+# contents
+[Service]
+ExecStart=
+ExecStart=-/sbin/agetty --noreset --noclear --autologin username - ${TERM}
