@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ready system
+sudo apt update
+sudo apt upgrade
+sudo apt install csound
+
+# dir prep
+cd $HOME
+mkdir -p X/OF
+cd X/OF
+
+# download OF
+wget https://github.com/openframeworks/openFrameworks/releases/download/0.12.1/of_v0.12.1_linux64_gcc6_release.tar.gz
+
+# extract and rename
+tar -xvf of_v0.12.1_linux64_gcc6_release.tar.gz
+mv of_v0.12.1_linux64_gcc6_release of_v0.12.1
+cd of_v0.12.1
+
+# below should not be unattended
+cd scripts/linux/ubuntu
+
+# install deps
+sudo ./install_dependencies
+cd ..
+
+# compilations
+./compileOF.sh
+./compilePG.sh
+
+# gui tasks
+echo "while installing ubuntu remember to uncheck 'require password to login'"
+echo "otherwise: settings -> users -> automatically login"
+
+echo "add ofApp launcher shell script in autostart section"
